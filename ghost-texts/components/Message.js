@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#7892F6',
     justifyContent: 'center',
     textAlign: 'center',
-    borderRadius:10,
+    borderRadius: 5,
     overflow: 'hidden'
-  },
+  }
 });
