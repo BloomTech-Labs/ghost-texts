@@ -1,8 +1,16 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-  messages: [],
-  gettingMessages,
+  messages: [
+    {
+      body: 'heres a message',
+      id: '0',
+    },
+    {
+      body: 'another message',
+      id: '1',
+    },
+  ],
 };
 
 export const rootReducer = (state = initialState, action) => {
