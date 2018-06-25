@@ -14,20 +14,17 @@ export const PHONE_VALID = 'PHONE_VALID';
 export const MESSAGE_FIELD_ERROR = 'MESSAGE_FIELD_ERROR';
 export const MESSAGE_FIELD_VALID = 'MESSAGE_FIELD_VALID';
 
-export const MESSAGE_FIELD_ERROR = 'MESSAGE_FIELD_ERROR';
-export const MESSAGE_FIELD_VALID = 'MESSAGE_FIELD_VALID';
-
 export const STRIPE_FIELDS_ERROR = 'STRIPE_FIELDS_ERROR';
 export const STRIPE_FIELDS_VALID = 'STRIPE_FIELDS_VALID';
 
-export const CREATE_TOKEN = 'CREATE_TOKEN';
-export const TOKEN_CREATED = 'TOKEN_CREATED';
-export const ERROR_CREATING_TOKEN = 'ERROR_CREATING_TOKEN';
+// export const CREATE_TOKEN = 'CREATE_TOKEN';
+// export const TOKEN_CREATED = 'TOKEN_CREATED';
+// export const ERROR_CREATING_TOKEN = 'ERROR_CREATING_TOKEN';
 
 export const FORM_COMPLETE = 'FORM_COMPLETE';
 
-export const CARD_VALID = 'CARD_VALID';
-export const CARD_INVALID = 'CARD_INVALID';
+// export const CARD_VALID = 'CARD_VALID';
+// export const CARD_INVALID = 'CARD_INVALID';
 
 
 const API = 'https://limitless-refuge-43765.herokuapp.com/api/';
@@ -60,22 +57,4 @@ export const sendMessage = (data) => {
         dispatch({ type: SEND_MESSAGE_ERROR, payload: error });
       });
   };
-};
-export const deleteNote = (id) => {
-    return {
-        type: DELETENOTE,
-        payload: id,
-    }
-};
-export const search = (text) => {
-    return {
-        type: SEARCH,
-        payload: text,
-    }
-};
-export const resetSearch = (resetAction) => {
-    return {
-        type: RESETSEARCH,
-        resetAction,
-    }
 };
