@@ -3,7 +3,6 @@ import { StyleSheet, Text } from 'react-native';
 
 class Message extends React.Component {
   render() {
-    console.log(this.props);
     return <Text style={styles.message} >{this.props.body}</Text>;
   }
   
