@@ -9,20 +9,20 @@ class Messages extends React.PureComponent {
   componentDidMount() {
     this.props.getMessages()
   }
-
   _keyExtractor = message => {
     return message.id;
   };
 
   render() {
-    const { messages } = this.props;
+    const { messages, isGettingMessages } = this.props;
     return (
       <FlatList
         data={messages}
         renderItem={({ item }) => (
           <Message body={item.body} />
         )}
-        // onRefresh={()=> this.props.getMessages() }
+        onRefresh={()=> this.props.getMessages()}
+        refreshing={isGettingMessages}
         keyExtractor={this._keyExtractor}
       />
     );
@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  console.log(state)
-  let { messages } = state
+  let { messages, isGettingMessages } = state
   return {
-    messages
+    messages,
+    isGettingMessages
   };
 };
 

@@ -11,6 +11,7 @@ const initialState = {
       id: '1',
     },
   ],
+  isGettingMessages: false,
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -18,18 +19,18 @@ export const rootReducer = (state = initialState, action) => {
     case actionTypes.GETTING_MESSAGES:
       return {
         ...state,
-        gettingMessages: true,
+        isGettingMessages: true,
       };
     case actionTypes.MESSAGES_RECEIVED:
       return {
         ...state,
         messages: [...action.payload],
-        gettingMessages: false,
+        isGettingMessages: false,
       };
     case actionTypes.ERROR_GETTING_MESSAGES:
       return {
         ...state,
-        gettingMessages: false,
+        isGettingMessages: false,
         gettingMessagesError: true,
       };
     default:
