@@ -17,8 +17,8 @@ export default class App extends React.Component {
   state = {
     index: 0,
     routes: [
-      { key: 'first', title: 'Message' },
-      { key: 'second', title: 'Feed' },
+      { key: 'first', title: 'Feed' },
+      { key: 'second', title: 'Message' },
     ],
   };
 
