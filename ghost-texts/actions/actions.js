@@ -31,7 +31,6 @@ const API = 'https://limitless-refuge-43765.herokuapp.com/api/';
 const messages = 'recent-messages';
 const send = 'send';
 
-
 export const getMessages = () => {
   return (dispatch) => {
     dispatch({ type: GETTING_MESSAGES });

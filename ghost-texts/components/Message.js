@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#7892F6',
     justifyContent: 'center',
-    textAlign: 'center',
+    textAlign: 'left',
     borderRadius: 5,
     overflow: 'hidden'
   }
