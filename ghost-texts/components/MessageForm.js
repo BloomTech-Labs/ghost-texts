@@ -8,6 +8,7 @@ import {
 } from 'react-native-elements';
 import { sendMessage } from '../actions/actions';
 import { connect } from 'react-redux';
+import Payment from './Stripe/index'
 
 class MessageForm extends React.Component {
   state = {};
@@ -19,6 +20,7 @@ class MessageForm extends React.Component {
         <FormLabel>Message</FormLabel>
         <FormInput placeholder="Message" placeholderTextColor="gray" />
         {/* <FormValidationMessage>Error message</FormValidationMessage> */}
+        <Payment/>
         <Button title="Send Message" style={styles.button} large/>
       </View>
     );
