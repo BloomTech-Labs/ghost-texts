@@ -21,7 +21,6 @@ class Messages extends React.PureComponent {
           style={styles.button}
           title="Send Your Own Message Now"
           medium
-          iconRight={{ name: 'message' }}
         />
         <Text style={styles.title}>Recent Messages</Text>
         <FlatList
