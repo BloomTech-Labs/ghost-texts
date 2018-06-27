@@ -20,7 +20,7 @@ class MessageForm extends React.Component {
   sendMessage = () => {
     this.props.sendMessage(this.state);
     this.setState({
-      
+
     })
   }
   render() {
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   button: {
+    marginTop: 100,
     backgroundColor: '#7892F6',
     borderRadius: 5,
     overflow: 'hidden'
