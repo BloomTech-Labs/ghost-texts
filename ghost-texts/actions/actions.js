@@ -53,13 +53,17 @@ export const sendMessage = data => {
     return axios
       .post(API + send, data)
       .then(({ data }) => {
-        console.log(data)
-        dispatch({ type: HIDE_LOADER });
         dispatch({ type: MESSAGE_SENT, payload: data });
+        setTimeout(() => {
+          dispatch({ type: HIDE_LOADER });
+        }, 2000);
       })
       .catch(error => {
         dispatch({ type: SHOW_LOADER });
         dispatch({ type: SEND_MESSAGE_ERROR, payload: error });
+        setTimeout(() => {
+          dispatch({ type: HIDE_LOADER });
+        }, 2000);
       });
   };
 };
@@ -72,13 +76,6 @@ export const getToken = data => {
 
     dispatch({ type: CREATE_TOKEN });
     return client
-      // .createToken({
-      //   number: card,
-      //   exp_month: month,
-      //   exp_year: year,
-      //   cvc,
-      //   address_zip: zip,
-      // })
       .createToken({
         number: '4242424242424242',
         exp_month: '08',
@@ -93,6 +90,9 @@ export const getToken = data => {
       .catch(error => {
         dispatch({ type: SHOW_LOADER });
         dispatch({ type: ERROR_CREATING_TOKEN, payload: error });
+        setTimeout(() => {
+          dispatch({ type: HIDE_LOADER });
+        }, 2000);
       });
   };
 };
