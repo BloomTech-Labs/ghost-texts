@@ -46,7 +46,6 @@ export const getMessages = () => {
   };
 };
 export const sendMessage = data => {
-  console.log('actiondata', data);
   return dispatch => {
     dispatch({ type: SHOW_LOADER });
     dispatch({ type: SEND_MESSAGE });
@@ -56,14 +55,14 @@ export const sendMessage = data => {
         dispatch({ type: MESSAGE_SENT, payload: data });
         setTimeout(() => {
           dispatch({ type: HIDE_LOADER });
-        }, 2000);
+        }, 1500);
       })
       .catch(error => {
         dispatch({ type: SHOW_LOADER });
         dispatch({ type: SEND_MESSAGE_ERROR, payload: error });
         setTimeout(() => {
           dispatch({ type: HIDE_LOADER });
-        }, 2000);
+        }, 1500);
       });
   };
 };
@@ -92,7 +91,7 @@ export const getToken = data => {
         dispatch({ type: ERROR_CREATING_TOKEN, payload: error });
         setTimeout(() => {
           dispatch({ type: HIDE_LOADER });
-        }, 2000);
+        }, 1500);
       });
   };
 };
