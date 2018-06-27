@@ -3,7 +3,7 @@ import Stripe from 'react-native-stripe-api';
 
 export const GETTING_MESSAGES = 'GET_MESSAGES';
 export const MESSAGES_RECEIVED = 'MESSAGES_RECEIVED';
-export const ERROR_GETTING_MESSAGES  = 'ERROR_GETTING_MESSAGES';
+export const ERROR_GETTING_MESSAGES = 'ERROR_GETTING_MESSAGES';
 
 export const SEND_MESSAGE = 'SEND_MESSAGE';
 export const MESSAGE_SENT = 'MESSAGE_SENT';
@@ -28,64 +28,71 @@ export const HIDE_LOADER = 'HIDE_LOADER';
 // export const CARD_VALID = 'CARD_VALID';
 // export const CARD_INVALID = 'CARD_INVALID';
 
-
 const API = 'https://limitless-refuge-43765.herokuapp.com/api/';
 const messages = 'recent-messages';
 const send = 'send';
 
 export const getMessages = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch({ type: GETTING_MESSAGES });
     axios
       .get(API + messages)
       .then(({ data }) => {
         dispatch({ type: MESSAGES_RECEIVED, payload: data });
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch({ type: ERROR_GETTING_MESSAGES, payload: error });
       });
   };
 };
-export const sendMessage = (data) => {
-  console.log('actiondata', data)
-  return (dispatch) => {
+export const sendMessage = data => {
+  console.log('actiondata', data);
+  return dispatch => {
     dispatch({ type: SHOW_LOADER });
     dispatch({ type: SEND_MESSAGE });
     return axios
       .post(API + send, data)
       .then(({ data }) => {
+        console.log(data)
         dispatch({ type: HIDE_LOADER });
         dispatch({ type: MESSAGE_SENT, payload: data });
       })
-      .catch((error) => {
-        dispatch({ type: HIDE_LOADER });
+      .catch(error => {
+        dispatch({ type: SHOW_LOADER });
         dispatch({ type: SEND_MESSAGE_ERROR, payload: error });
       });
   };
 };
-export const getToken = (data) => {
-  const apiKey = 'pk_test_N3kloqdrQMet0yDqnXGzsxR0';
-  const client = new Stripe(apiKey);
-
-  const { card, month, year, cvc, zip } = data;
-
-  return (dispatch) => {
+export const getToken = data => {
+  return dispatch => {
     dispatch({ type: SHOW_LOADER });
+    const apiKey = 'pk_test_N3kloqdrQMet0yDqnXGzsxR0';
+    const client = new Stripe(apiKey);
+    const { card, month, year, cvc, zip } = data;
+
     dispatch({ type: CREATE_TOKEN });
-    return client.createToken({
-      number: card,
-      exp_month: month, 
-      exp_year: year, 
-      cvc,
-      address_zip: zip
-    })
-    .then(data => {
-      const { id } = data;
-      dispatch({ type: HIDE_LOADER });
-      dispatch({ type: TOKEN_CREATED, payload: id });
-    })
-    .catch(error => {
-      dispatch({ type: ERROR_CREATING_TOKEN, payload: error });
-    })
+    return client
+      // .createToken({
+      //   number: card,
+      //   exp_month: month,
+      //   exp_year: year,
+      //   cvc,
+      //   address_zip: zip,
+      // })
+      .createToken({
+        number: '4242424242424242',
+        exp_month: '08',
+        exp_year: '19',
+        cvc: '000',
+        address_zip: '77777',
+      })
+      .then(data => {
+        const { id } = data;
+        dispatch({ type: TOKEN_CREATED, payload: id });
+      })
+      .catch(error => {
+        dispatch({ type: SHOW_LOADER });
+        dispatch({ type: ERROR_CREATING_TOKEN, payload: error });
+      });
   };
-}
+};

@@ -1,20 +1,54 @@
 import React, { Component } from 'react';
-import { Dimensions, Image, StyleSheet, View, Text } from 'react-native';
+import { Image, StyleSheet, View, Text, Animated } from 'react-native';
+import { connect } from 'react-redux';
+class Loader extends Component {
 
-export default class Loader extends Component {
-  // imageWidth = () => {
-  //   return Math.round(Dimensions.get('window').width);
-  // };
-  render() {
-    return (
-      <View style={styles.container}>
-      <Image
+  chooseLoader = () => {
+    console.log(this.props)
+    if(this.props.loadConfirm) {
+      return (
+        <Image
         style={{
           flex: 1,
+          width: 100,
+          height: 100,
+        }}
+        source={require('../images/completed.png')}
+        resizeMode="contain"
+      />
+      )
+    } else if (this.props.loadError) {
+      return (
+        <Image
+        style={{
+          flex: 1,
+          width: 100,
+          height: 100,
+        }}
+        source={require('../images/error.png')}
+        resizeMode="contain"
+      />
+      );
+    } else {
+      return (
+        <Animated.Image
+        style={{
+          flex: 1,
+          width: 100,
+          height: 100,
         }}
         source={require('../images/loader.png')}
         resizeMode="contain"
       />
+      );
+    }
+  }
+
+  render() {
+    let loader = this.chooseLoader();
+    return (
+      <View style={styles.container}>
+      {loader}
       <Text style={{color: 'white'}}>Sending Message</Text>
       </View>
     );
@@ -31,3 +65,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   }
 })
+
+const mapStateToProps = state => {
+  let { loadConfirm, loadError } = state;
+  return {
+    loadConfirm,
+    loadError,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Loader);

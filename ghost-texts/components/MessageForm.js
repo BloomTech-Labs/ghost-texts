@@ -50,11 +50,6 @@ class MessageForm extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        {this.props.showLoader && (
-          <View style={styles.loader}>
-            <Loader />
-          </View>
-        )}
         <FormInput
           style={styles.input}
           placeholder="Phone"
@@ -140,6 +135,11 @@ class MessageForm extends React.Component {
           large
           onPress={this.createToken}
         />
+                {this.props.showLoader && (
+          <View style={styles.loader}>
+            <Loader />
+          </View>
+        )}
       </KeyboardAvoidingView>
     );
   }

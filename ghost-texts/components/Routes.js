@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
 
 import Messages from './Messages';
 import MessageForm from './MessageForm';
@@ -19,19 +18,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-  },
-  screen: {
-    position: 'absolute',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  }
 });
-
-const mapStateToProps = state => {
-  const { creatingToken } = state;
-  return {
-    creatingToken,
-  };
-};
-
-export default connect(mapStateToProps)(MessageFeed, SendMessage);
