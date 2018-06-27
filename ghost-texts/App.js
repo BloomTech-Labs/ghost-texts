@@ -34,21 +34,21 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <TabView
-          style={styles.tab}
-          navigationState={this.state}
-          renderScene={SceneMap({
-            first: MessageFeed,
-            second: SendMessage,
-          })}
-          renderTabBar={this._renderTabBar}
-          onIndexChange={index => this.setState({ index })}
-          initialLayout={{
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-          }}
-          useNativeDriver
-        />
+          <TabView
+            style={styles.tab}
+            navigationState={this.state}
+            renderScene={SceneMap({
+              first: MessageFeed,
+              second: SendMessage,
+            })}
+            renderTabBar={this._renderTabBar}
+            onIndexChange={index => this.setState({ index })}
+            initialLayout={{
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height,
+            }}
+            useNativeDriver
+          />
       </Provider>
     );
   }

@@ -1,12 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import {
-  FormLabel,
-  FormInput,
-  Button,
-} from 'react-native-elements';
+import { FormLabel, FormInput, Button } from 'react-native-elements';
 import { sendMessage, getToken } from '../actions/actions';
 import { connect } from 'react-redux';
+
+import Loader from './Loader';
 
 class MessageForm extends React.Component {
   state = {
@@ -27,21 +25,18 @@ class MessageForm extends React.Component {
       cvc,
       zip,
     };
-    this.props
-      .getToken(cardObj)
-      .then(() => {
-        const { currToken } = this.props;
-        const { message, recipient } = this.state;
-        this.sendMessage({
-          message,
-          recipient,
-          token: currToken
-        })
+    this.props.getToken(cardObj).then(() => {
+      const { currToken } = this.props;
+      const { message, recipient } = this.state;
+      this.sendMessage({
+        message,
+        recipient,
+        token: currToken,
       });
+    });
   };
-  sendMessage = (data) => {
-    this.props.sendMessage(data)
-    .then(() => {
+  sendMessage = data => {
+    this.props.sendMessage(data).then(() => {
       this.setState({
         message: '',
         recipient: '',
@@ -51,10 +46,15 @@ class MessageForm extends React.Component {
         zip: '',
       });
     });
-  }
+  };
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        {this.props.showLoader && (
+          <View style={styles.loader}>
+            <Loader />
+          </View>
+        )}
         <FormInput
           style={styles.input}
           placeholder="Phone"
@@ -176,11 +176,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
   },
+  loader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 const mapStateToProps = state => {
-  let { currToken, tokenCreated } = state;
+  let { currToken, tokenCreated, showLoader } = state;
   return {
+    showLoader,
     currToken,
     tokenCreated,
   };

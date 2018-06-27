@@ -22,7 +22,8 @@ export const CREATE_TOKEN = 'CREATE_TOKEN';
 export const TOKEN_CREATED = 'TOKEN_CREATED';
 export const ERROR_CREATING_TOKEN = 'ERROR_CREATING_TOKEN';
 
-export const FORM_COMPLETE = 'FORM_COMPLETE';
+export const SHOW_LOADER = 'SHOW_LOADER';
+export const HIDE_LOADER = 'HIDE_LOADER';
 
 // export const CARD_VALID = 'CARD_VALID';
 // export const CARD_INVALID = 'CARD_INVALID';
@@ -48,13 +49,16 @@ export const getMessages = () => {
 export const sendMessage = (data) => {
   console.log('actiondata', data)
   return (dispatch) => {
+    dispatch({ type: SHOW_LOADER });
     dispatch({ type: SEND_MESSAGE });
     return axios
       .post(API + send, data)
       .then(({ data }) => {
+        dispatch({ type: HIDE_LOADER });
         dispatch({ type: MESSAGE_SENT, payload: data });
       })
       .catch((error) => {
+        dispatch({ type: HIDE_LOADER });
         dispatch({ type: SEND_MESSAGE_ERROR, payload: error });
       });
   };
@@ -66,6 +70,7 @@ export const getToken = (data) => {
   const { card, month, year, cvc, zip } = data;
 
   return (dispatch) => {
+    dispatch({ type: SHOW_LOADER });
     dispatch({ type: CREATE_TOKEN });
     return client.createToken({
       number: card,
@@ -76,6 +81,7 @@ export const getToken = (data) => {
     })
     .then(data => {
       const { id } = data;
+      dispatch({ type: HIDE_LOADER });
       dispatch({ type: TOKEN_CREATED, payload: id });
     })
     .catch(error => {

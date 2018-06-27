@@ -15,7 +15,8 @@ const initialState = {
   isGettingMessages: false,
   creatingToken: false,
   tokenCreated: false,
-  tokenError: false
+  tokenError: false,
+  showLoader: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -58,6 +59,23 @@ export const rootReducer = (state = initialState, action) => {
       creatingToken: false,
       tokenCreated: false,
       tokenError: true
+    };
+    case actionTypes.ERROR_CREATING_TOKEN:
+    return {
+      ...state,
+      creatingToken: false,
+      tokenCreated: false,
+      tokenError: true
+    };
+    case actionTypes.SHOW_LOADER:
+    return {
+      ...state,
+      showLoader: true,
+    };
+    case actionTypes.HIDE_LOADER:
+    return {
+      ...state,
+      showLoader: false,
     };
     default:
       return state;
