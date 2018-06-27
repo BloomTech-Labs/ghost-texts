@@ -11,7 +11,11 @@ const initialState = {
       id: '1',
     },
   ],
+  currToken: '',
   isGettingMessages: false,
+  creatingToken: false,
+  tokenCreated: false,
+  tokenError: false
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -33,6 +37,28 @@ export const rootReducer = (state = initialState, action) => {
         isGettingMessages: false,
         gettingMessagesError: true,
       };
+    case actionTypes.CREATE_TOKEN:
+    return {
+      ...state,
+      creatingToken: true,
+      tokenCreated: false,
+      tokenError: false
+    };
+    case actionTypes.TOKEN_CREATED:
+    return {
+      ...state,
+      currToken: action.payload.id,
+      creatingToken: false,
+      tokenCreated: true,
+      tokenError: false
+    };
+    case actionTypes.ERROR_CREATING_TOKEN:
+    return {
+      ...state,
+      creatingToken: false,
+      tokenCreated: false,
+      tokenError: true
+    };
     default:
       return state;
   }

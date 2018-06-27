@@ -1,38 +1,42 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import stripe from 'tipsi-stripe';
+import { View, StyleSheet } from 'react-native';
+import { FormLabel, FormInput } from 'react-native-elements';
 
-stripe.init({
-  publishableKey: 	
-  'pk_test_N3kloqdrQMet0yDqnXGzsxR0',
-});
-
-const theme = {
-  primaryBackgroundColor: '#fff',
-  secondaryBackgroundColor: gray,
-  primaryForegroundColor: '#7892F6',
-  secondaryForegroundColor: '#7892F6',
-  accentColor: yellow,
-  errorColor: red
-};
-
-class NewCardPage extends Component {
-  componentDidMount() {
-    
-    const options = {
-      smsAutofillDisabled: true,
-      requiredBillingAddressFields: 'zip', // or 'full'
-      theme
-    };
-    stripe.paymentRequestWithCardForm(options)
-      .then(response => {
-        // Get the token from the response, and send to your server
-      })
-      .catch(error => {
-        // Handle error
-      });
-  }
+export default class StripeForm extends Component {
   render() {
-    return <View />
+    return (
+      <View>
+        <FormLabel>CC</FormLabel>
+        <FormInput placeholder="CC" placeholderTextColor="gray" />
+        <View style={styles.cc}>
+          <FormInput
+            style={{width: 50}}
+            placeholder="month"
+            placeholderTextColor="gray"
+          />
+          <FormInput
+
+            placeholder="year"
+            placeholderTextColor="gray"
+          />
+          <FormInput
+            style={{ flex: 1 }}
+            placeholder="zip"
+            placeholderTextColor="gray"
+          />
+        </View>
+      </View>
+    );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  cc: {
+
+    flexDirection: 'row',
+  },
+});

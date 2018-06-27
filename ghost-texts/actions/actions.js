@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Stripe from 'react-native-stripe-api';
 
 export const GETTING_MESSAGES = 'GET_MESSAGES';
 export const MESSAGES_RECEIVED = 'MESSAGES_RECEIVED';
@@ -17,9 +18,9 @@ export const MESSAGE_FIELD_VALID = 'MESSAGE_FIELD_VALID';
 export const STRIPE_FIELDS_ERROR = 'STRIPE_FIELDS_ERROR';
 export const STRIPE_FIELDS_VALID = 'STRIPE_FIELDS_VALID';
 
-// export const CREATE_TOKEN = 'CREATE_TOKEN';
-// export const TOKEN_CREATED = 'TOKEN_CREATED';
-// export const ERROR_CREATING_TOKEN = 'ERROR_CREATING_TOKEN';
+export const CREATE_TOKEN = 'CREATE_TOKEN';
+export const TOKEN_CREATED = 'TOKEN_CREATED';
+export const ERROR_CREATING_TOKEN = 'ERROR_CREATING_TOKEN';
 
 export const FORM_COMPLETE = 'FORM_COMPLETE';
 
@@ -57,3 +58,24 @@ export const sendMessage = (data) => {
       });
   };
 };
+export const getToken = (data) => {
+  const apiKey = 'pk_test_N3kloqdrQMet0yDqnXGzsxR0';
+  const client = new Stripe(apiKey);
+
+  return (dispatch) => {
+    dispatch({ type: CREATE_TOKEN });
+    client.createToken({
+      number: '4242424242424242' ,
+      exp_month: '09', 
+      exp_year: '18', 
+      cvc: '111',
+      address_zip: '12345'
+    })
+    .then(data => {
+      dispatch({ type: TOKEN_CREATED, payload: data });
+    })
+    .catch(error => {
+      dispatch({ type: ERROR_CREATING_TOKEN, payload: error });
+    })
+  };
+}
