@@ -46,9 +46,10 @@ export const getMessages = () => {
   };
 };
 export const sendMessage = (data) => {
+  console.log('actiondata', data)
   return (dispatch) => {
     dispatch({ type: SEND_MESSAGE });
-    axios
+    return axios
       .post(API + send, data)
       .then(({ data }) => {
         dispatch({ type: MESSAGE_SENT, payload: data });
@@ -62,17 +63,20 @@ export const getToken = (data) => {
   const apiKey = 'pk_test_N3kloqdrQMet0yDqnXGzsxR0';
   const client = new Stripe(apiKey);
 
+  const { card, month, year, cvc, zip } = data;
+
   return (dispatch) => {
     dispatch({ type: CREATE_TOKEN });
-    client.createToken({
-      number: '4242424242424242' ,
-      exp_month: '09', 
-      exp_year: '18', 
-      cvc: '111',
-      address_zip: '12345'
+    return client.createToken({
+      number: card,
+      exp_month: month, 
+      exp_year: year, 
+      cvc,
+      address_zip: zip
     })
     .then(data => {
-      dispatch({ type: TOKEN_CREATED, payload: data });
+      const { id } = data;
+      dispatch({ type: TOKEN_CREATED, payload: id });
     })
     .catch(error => {
       dispatch({ type: ERROR_CREATING_TOKEN, payload: error });

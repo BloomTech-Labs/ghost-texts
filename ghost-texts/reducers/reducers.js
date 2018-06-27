@@ -47,7 +47,7 @@ export const rootReducer = (state = initialState, action) => {
     case actionTypes.TOKEN_CREATED:
     return {
       ...state,
-      currToken: action.payload.id,
+      currToken: action.payload,
       creatingToken: false,
       tokenCreated: true,
       tokenError: false
