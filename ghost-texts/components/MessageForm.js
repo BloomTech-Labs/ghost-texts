@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { FormLabel, FormInput, Button } from 'react-native-elements';
 import { sendMessage, getToken } from '../actions/actions';
 import { connect } from 'react-redux';
@@ -17,6 +17,7 @@ class MessageForm extends React.Component {
     zip: '',
   };
   createToken = () => {
+    Keyboard.dismiss();
     const { card, month, year, cvc, zip } = this.state;
     const cardObj = {
       card,

@@ -1,24 +1,14 @@
 import * as actionTypes from '../actions/actions';
 
 const initialState = {
-  messages: [
-    {
-      body: 'heres a message',
-      id: '0',
-    },
-    {
-      body: 'another message',
-      id: '1',
-    },
-  ],
+  messages: [],
   currToken: '',
   isGettingMessages: false,
   creatingToken: false,
   tokenCreated: false,
   tokenError: false,
   showLoader: false,
-  loadConfirm: false,
-  loadError: false
+  loadStatus: ''
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -66,22 +56,19 @@ export const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       sendingMessage: true,
-      loadConfirm: true,
-      sendError: false
+      loadStatus: 'SENDING',
     };
     case actionTypes.MESSAGE_SENT:
     return {
       ...state,
       sendingMessage: false,
-      loadConfirm: true,
-      sendError: false
+      loadStatus: 'CONFIRMED',
     };
     case actionTypes.SEND_MESSAGE_ERROR:
     return {
       ...state,
       sendingMessage: false,
-      loadConfirm: false,
-      loadError: true
+      loadStatus: 'ERROR',
     };
     case actionTypes.SHOW_LOADER:
     return {
@@ -92,6 +79,7 @@ export const rootReducer = (state = initialState, action) => {
     return {
       ...state,
       showLoader: false,
+      loadStatus: '',
     };
     default:
       return state;

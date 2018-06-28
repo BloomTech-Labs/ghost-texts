@@ -10,7 +10,7 @@ class Messages extends React.PureComponent {
     this.props.getMessages();
   }
   _keyExtractor = (message, index) => {
-    return message.body;
+    return message.sid;
   };
 
   render() {

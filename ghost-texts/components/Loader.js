@@ -2,78 +2,84 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View, Text, Animated } from 'react-native';
 import { connect } from 'react-redux';
 class Loader extends Component {
-
-  chooseLoader = () => {
-    console.log(this.props)
-    if(this.props.loadConfirm) {
-      return (
-        <Image
-        style={{
-          flex: 1,
-          width: 100,
-          height: 100,
-        }}
-        source={require('../images/completed.png')}
-        resizeMode="contain"
-      />
-      )
-    } else if (this.props.loadError) {
-      return (
-        <Image
-        style={{
-          flex: 1,
-          width: 100,
-          height: 100,
-        }}
-        source={require('../images/error.png')}
-        resizeMode="contain"
-      />
-      );
-    } else {
-      return (
-        <Animated.Image
-        style={{
-          flex: 1,
-          width: 100,
-          height: 100,
-        }}
-        source={require('../images/loader.png')}
-        resizeMode="contain"
-      />
-      );
+  chooseLoader = loadStatus => {
+    console.log(loadStatus);
+    switch (loadStatus) {
+      case 'ERROR':
+        return (
+          <View style={styles.container}>
+            <Image
+              style={{
+                flex: 1,
+                width: 100,
+                height: 100,
+              }}
+              source={require('../images/error.png')}
+              resizeMode="contain"
+            />
+            <Text style={{ color: 'white' }}>Something Went Wrong!</Text>
+          </View>
+        );
+      case 'CONFIRMED':
+        return (
+          <View style={styles.container}>
+            <Image
+              style={{
+                flex: 1,
+                width: 100,
+                height: 100,
+              }}
+              source={require('../images/completed.png')}
+              resizeMode="contain"
+            />
+            <Text style={{ color: 'white' }}>Message Sent</Text>
+          </View>
+        );
+      case 'SENDING':
+        return (
+          <View style={styles.container}>
+            <Image
+              style={{
+                flex: 1,
+                width: 100,
+                height: 100,
+              }}
+              source={require('../images/loader.png')}
+              resizeMode="contain"
+            />
+            <Text style={{ color: 'white' }}>Sending Message</Text>
+          </View>
+        );
+      default:
+        return;
     }
-  }
+  };
 
   render() {
-    let loader = this.chooseLoader();
     return (
-      <View style={styles.container}>
-      {loader}
-      <Text style={{color: 'white'}}>Sending Message</Text>
+      <View>
+        {this.chooseLoader(this.props.loadStatus)}
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   container: {
-    height:200,
-    width:175,
+    height: 200,
+    width: 175,
     backgroundColor: 'rgba(0, 0, 0, .75)',
     borderRadius: 5,
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-  }
-})
+  },
+});
 
 const mapStateToProps = state => {
-  let { loadConfirm, loadError } = state;
+  let { loadStatus } = state;
   return {
-    loadConfirm,
-    loadError,
+    loadStatus,
   };
 };
 
-export default connect(
-  mapStateToProps
-)(Loader);
+export default connect(mapStateToProps)(Loader);
