@@ -14,7 +14,9 @@ export default class Logo extends Component {
           width: undefined,
           height: undefined,
           marginTop: 10,
-          marginBottom: 10
+          marginBottom: 0,
+          marginRight: 10,
+          marginLeft: 10
         }}
         source={require('../images/ghost_texts_white.png')}
         resizeMode="contain"
