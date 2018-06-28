@@ -47,7 +47,6 @@ export const getMessages = () => {
 };
 export const sendMessage = data => {
   return dispatch => {
-    dispatch({ type: SHOW_LOADER });
     dispatch({ type: SEND_MESSAGE });
     return axios
       .post(API + send, data)
