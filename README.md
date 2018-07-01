@@ -1,7 +1,7 @@
 # ghost-texts
 CS7 Capstone RN Stretch goal app
 
-![Message Feed](Feed.PNG)
-![Send Message and CC Form](SendMessage.PNG)
-![Error Feedback](Error.PNG)
-![Sending Message Feedback](Sending.PNG)
+<img src="Feed.PNG" width="250"/>
+<img src="SendMessage.PNG" width="250"/>
+<img src="Error.PNG" width="250"/>
+<img src="Sending.PNG" width="250"/>
